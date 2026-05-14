@@ -21,7 +21,6 @@ import com.dailytracker.app.utils.SessionManager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class RoutinesFragment extends Fragment {
 
@@ -78,12 +77,15 @@ public class RoutinesFragment extends Fragment {
             public void onResult(List<RoutineItem> items) {
                 if (getContext() == null) return;
                 allRoutines = items;
-                List<RoutineItem> food = items.stream()
-                        .filter(i -> "FOOD".equals(i.getCategory()))
-                        .collect(Collectors.toList());
-                List<RoutineItem> sport = items.stream()
-                        .filter(i -> "SPORT".equals(i.getCategory()))
-                        .collect(Collectors.toList());
+                List<RoutineItem> food = new ArrayList<>();
+                List<RoutineItem> sport = new ArrayList<>();
+                for (RoutineItem i : items) {
+                    if ("FOOD".equals(i.getCategory())) {
+                        food.add(i);
+                    } else if ("SPORT".equals(i.getCategory())) {
+                        sport.add(i);
+                    }
+                }
                 foodAdapter.updateList(food);
                 sportAdapter.updateList(sport);
             }

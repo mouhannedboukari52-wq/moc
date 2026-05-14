@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import androidx.core.content.ContextCompat;
+
 import com.dailytracker.app.utils.SessionManager;
 
 public class BootReceiver extends BroadcastReceiver {
@@ -16,7 +18,7 @@ public class BootReceiver extends BroadcastReceiver {
                 // Re-start foreground service after reboot
                 Intent serviceIntent = new Intent(context,
                         com.dailytracker.app.service.ReminderForegroundService.class);
-                context.startForegroundService(serviceIntent);
+                ContextCompat.startForegroundService(context, serviceIntent);
             }
         }
     }

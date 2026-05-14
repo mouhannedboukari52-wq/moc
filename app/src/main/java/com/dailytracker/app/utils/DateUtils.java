@@ -6,11 +6,11 @@ import java.util.Locale;
 
 public class DateUtils {
 
-    private static final SimpleDateFormat DATE_FORMAT =
-            new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+    private static final ThreadLocal<SimpleDateFormat> DATE_FORMAT = ThreadLocal.withInitial(
+            () -> new SimpleDateFormat("yyyy-MM-dd", Locale.US));
 
     public static String today() {
-        return DATE_FORMAT.format(new Date());
+        return DATE_FORMAT.get().format(new Date());
     }
 
     public static String formatTime(int hour, int minute) {

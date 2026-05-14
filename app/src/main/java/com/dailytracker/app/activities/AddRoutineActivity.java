@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.dailytracker.app.data.DbPaths;
 import com.dailytracker.app.data.FirebaseRepository;
 import com.dailytracker.app.databinding.ActivityAddRoutineBinding;
 import com.dailytracker.app.models.RoutineItem;
@@ -50,9 +49,11 @@ public class AddRoutineActivity extends AppCompatActivity {
 
     private void saveRoutine() {
         String title = binding.etTitle.getText().toString().trim();
-        String category = binding.rgCategory.getCheckedRadioButtonId() == R.id.rbFood ? "FOOD" : "SPORT";
-        int hour = binding.timePicker.getHour();
-        int minute = binding.timePicker.getMinute();
+        String category = binding.rgCategory.getCheckedRadioButtonId() == R.id.rb_food ? "FOOD" : "SPORT";
+        int hour = (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
+                ? binding.timePicker.getHour() : binding.timePicker.getCurrentHour();
+        int minute = (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
+                ? binding.timePicker.getMinute() : binding.timePicker.getCurrentMinute();
 
         if (title.isEmpty()) {
             Toast.makeText(this, "Please enter a title", Toast.LENGTH_SHORT).show();
